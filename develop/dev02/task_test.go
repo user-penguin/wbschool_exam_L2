@@ -20,6 +20,11 @@ func TestExtract(t *testing.T) {
 		},
 		{
 			name: "test-2",
+			arg:  "45",
+			want: "некорректная строка",
+		},
+		{
+			name: "test-3",
 			arg:  "abcd",
 			want: "abcd",
 		},

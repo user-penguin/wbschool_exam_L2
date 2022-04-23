@@ -17,13 +17,44 @@ package dev02
 
 Функция должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
+func isNumber(r rune) bool {
+	return r >= '0' && r <= '9'
+}
+
+func getRepeatSym(n int, sym rune) []rune {
+	var res []rune
+	for i := 0; i < n; i++ {
+		res = append(res, sym)
+	}
+	return res
+}
 
 func Extract(v string) string {
-	if v == "a4bc2d5e" {
-		return "aaaabccddddde"
+	switch len(v) {
+	case 0:
+		return ""
+	case 1:
+		return v
+	default:
+		var result []rune
+		letters := []rune(v)
+		for len(letters) > 0 {
+			if len(letters) == 1 {
+				result = append(result, letters[0])
+				break
+			}
+			a, b := letters[0], letters[1]
+			if isNumber(a) && isNumber(b) {
+				return "некорректная строка"
+			}
+			if isNumber(b) {
+				result = append(result, getRepeatSym(int(b-'0'), a)...)
+				letters = letters[2:]
+			} else {
+				result = append(result, a)
+				letters = letters[1:]
+			}
+		}
+		return string(result)
 	}
-	if v == "abcd" {
-		return "abcd"
-	}
-	return ""
 }
