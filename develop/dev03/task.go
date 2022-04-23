@@ -1,5 +1,11 @@
 package main
 
+import (
+	"flag"
+	"fmt"
+	"os"
+)
+
 /*
 === Утилита sort ===
 
@@ -26,5 +32,16 @@ package main
 */
 
 func main() {
-
+	wordPtr := flag.String("", "test.txt", "путь")
+	kPtr := flag.Int("k", 1, "указание колонки для сортировки")
+	nPtr := flag.Bool("n", false, "сортировать по числовому значению")
+	rPtr := flag.Bool("r", false, "сортировать в обратном порядке")
+	uPtr := flag.Bool("u", false, "не выводить повторяющиеся строки")
+	flag.Parse()
+	fmt.Println("path", *wordPtr)
+	fmt.Println("k:", *kPtr)
+	fmt.Println("n:", *nPtr)
+	fmt.Println("r:", *rPtr)
+	fmt.Println("u:", *uPtr)
+	fmt.Println(os.Args)
 }
