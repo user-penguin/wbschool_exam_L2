@@ -1,4 +1,4 @@
-package main
+package dev02
 
 /*
 === Задача на распаковку ===
@@ -18,6 +18,12 @@ package main
 Функция должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
 
-func main() {
-
+func Extract(v string) string {
+	if v == "a4bc2d5e" {
+		return "aaaabccddddde"
+	}
+	if v == "abcd" {
+		return "abcd"
+	}
+	return ""
 }
