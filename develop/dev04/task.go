@@ -1,24 +1,43 @@
-package main
+package dev04
 
-/*
-=== Поиск анаграмм по словарю ===
+import (
+	"sort"
+	"strings"
+)
 
-Напишите функцию поиска всех множеств анаграмм по словарю.
-Например:
-'пятак', 'пятка' и 'тяпка' - принадлежат одному множеству,
-'листок', 'слиток' и 'столик' - другому.
+func Run(input *[]string) map[string][]string {
+	result := make(map[string][]string)
+	nominal := make(map[string]string) //пятка акптя
+	for _, str := range *input {
+		if len(str) < 2 {
+			continue
+		}
+		sorting(str, &nominal, &result)
+	}
+	for k, v := range result {
+		if len(v) == 0 {
+			delete(result, k)
+		}
+	}
+	return result
+}
 
-Входные данные для функции: ссылка на массив - каждый элемент которого - слово на русском языке в кодировке utf8.
-Выходные данные: Ссылка на мапу множеств анаграмм.
-Ключ - первое встретившееся в словаре слово из множества
-Значение - ссылка на массив, каждый элемент которого, слово из множества. Массив должен быть отсортирован по возрастанию.
-Множества из одного элемента не должны попасть в результат.
-Все слова должны быть приведены к нижнему регистру.
-В результате каждое слово должно встречаться только один раз.
-
-Программа должна проходить все тесты. Код должен проходить проверки go vet и golint.
-*/
-
-func main() {
-
+func sorting(str string, n *map[string]string, r *map[string][]string) {
+	// заходит Гаага
+	lower := strings.ToLower(str)
+	// опускается до гааага
+	byteLower := []rune(lower)
+	sortByte := []rune(lower)
+	// сортируе символы провряемого слова - ааагг - ищем в эталоне
+	// мапа n - состоит из ключей - упорядоченных букв в анаграммах одной группы
+	// значение - первое попавшееся слово - ключи мапы с результатами
+	sort.Slice(sortByte, func(i, j int) bool {
+		return sortByte[i] <= sortByte[j]
+	})
+	if v, ok := (*n)[string(sortByte)]; ok {
+		(*r)[v] = append((*r)[v], string(byteLower))
+	} else {
+		(*n)[string(sortByte)] = string(byteLower)
+		(*r)[string(byteLower)] = []string{}
+	}
 }
