@@ -1,0 +1,15 @@
+func main() {
+	core := pkg.NewCore()
+	flag.IntVar(&core.After, "A", 0, "'after' печатать +N строк после совпадения")
+	flag.IntVar(&core.Before, "B", 0, "'before' печатать +N строк до совпадения")
+	flag.IntVar(&core.Context, "C", 0, "'context' (A+B) печатать ±N строк вокруг совпадения")
+	flag.BoolVar(&core.Count, "c", false, "'count' (количество строк)")
+	flag.BoolVar(&core.IgnoreCase, "i", false, "'ignore-case' (игнорировать регистр)")
+	flag.BoolVar(&core.Invert, "v", false, "'invert' (вместо совпадения, исключать)")
+	flag.BoolVar(&core.Fixed, "F", false, "'fixed', точное совпадение со строкой")
+	flag.BoolVar(&core.LineNum, "n", false, "'line num', печатать номер строки")
+	flag.Parse()
+	core.SyncOutLength()
+	args := flag.Args()
+
+	if len(args) < 2 {
